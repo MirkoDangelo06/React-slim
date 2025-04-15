@@ -1,0 +1,111 @@
+endpoint scuole
+    
+    1) curl http://localhost:8080/scuole
+       Richiesta:
+       GET    /scuole                 ScuoleController:index
+       Risposta
+       Status code: 200   
+       [{"id": 1, "nome":"ITIS Meucci", "indirizzo": "Via del Filarete, 17"},  {"id": 2 , "nome":"Leonardo da Vinci", "indirizzo": "Via Garibaldi, 10"}]
+
+    2)curl http://localhost:8080/scuole/1
+      GET    /scuole/1               ScuoleController:show
+      Risposta 
+      Status code: 200   
+      [{"id": 1, "nome":"ITIS Meucci", "indirizzo": "Via del Filarete, 17"}]
+
+
+
+    3)curl -X POST http://localhost:8080/scuole -H "Content-Type: application/json" -d '{"nome": "ScandicciSchool", "indirizzo": "Via di scandicci 6"}'
+      post   /scuole                ScuoleController:create
+      Risposta 
+      Status code: 201   
+      
+
+
+    4)curl curl -X PUT http://localhost:8080/scuole/1 -H "Content-Type: application/json" -d '{"nome": "sassetti", "indirizzo": "cia del cavallaccio"}'
+      put    /scuole/1               ScuoleController:update
+      Risposta 
+      Status code: 200   
+      
+
+
+    5)curl X DELETE http://localhost:8080/scuole/1
+      delete   /scuole/1                ScuoleController:delete
+      Risposta 
+      Status code: 200   
+      
+
+
+
+        6) curl http://localhost:8080/scuole/docenti/order/deshending/n (n per ordinare il  nome o c per ordinare per cognome)
+        get  /docenti/order/deshending/n ScuoleController:deshendingOrder
+         Risposta 
+         Status code: 200  
+        {"id":"5","nome":"Zequoila","cognome":"Antonio","scuola_id":"1"},{"id":"4","nome":"Marsala","cognome":"Antonietta","scuola_id":"1"},{"id":"3","nome":"Francesco","cognome":"Bertoli","scuola_id":"2"},{"id":"6","nome":"benvenuti","cognome":"mariano","scuola_id":"1"}]
+
+
+
+
+    7)curl http://localhost:8080/scuole/docenti/order/ascending/c  (n per ordinare il  nome o c per ordinare per cognome)
+        get /docenti/order/ascending/c       ScuoleController:ashendingOrder
+        Risposta 
+        Status code: 200 
+
+
+endpoint docenti
+
+       1) curl http:8080/scuole/1/docenti
+       Richiesta:
+       GET    /scuole/1/docenti      DocentiController:index
+       Risposta
+       Status code: 200   
+       [{"id": 1, "nome":"ITIS Meucci", "indirizzo": "Via del Filarete, 17"},  {"id": 2 , "nome":"Leonardo da Vinci", "indirizzo": "Via Garibaldi, 10"}]
+
+
+    2)curl http://localhost:8080/scuole/docenti/3
+      GET    /scuole/1               DocentiController:show
+      Risposta 
+      Status code: 200   
+      [{"id":"3","nome":"Francesco","cognome":"Bertoli","scuola_id":"2"}]
+
+
+
+    3)curl -X POST http://localhost:8080/scuole/1/docenti -H "Content-Type: appplication/json" -d '{"nome": "Marsala", "cognome":  "Antonietta"}'
+      post   /scuole                DocentiController:create
+      Risposta 
+      Status code: 201   
+      
+
+
+
+    4)curl -X PUT http://localhost:8080/scuole/docenti/1 -H "Content-Type: application/json" -d '{"nome": "Mario", "cognome": "rossi"}'
+      put    /scuole/1               DocentiController:update
+      Risposta 
+      Status code: 200   
+      
+
+
+    5)curl -X DELETE http://localhost:8080/docenti/1
+      delete   /scuole                DocentileController:delete
+      Risposta 
+      Status code: 200  
+
+
+
+    6) curl http://localhost:8080/docenti/order/deshending
+        get  /docenti/order/deshending  DocentiController:deshendingOrder
+         Risposta 
+         Status code: 200  
+         [{"id":"1","nome":"sassetti","indirizzo":"cia del cavallaccio"},{"id":"2","nome":"Leonardo da Vinci","indirizzo":"Via Garibaldi, 10"}]
+
+
+
+
+
+    7)curl http://localhost:8080/docenti/order/ascending
+        get /docenti/order/ascending      DocentiController:ashendingOrder
+        Risposta 
+        Status code: 200 
+        [{"id":"2","nome":"Leonardo da Vinci","indirizzo":"Via Garibaldi, 10"},{"id":"1","nome":"sassetti","indirizzo":"cia del cavallaccio"}]
+
+(implementazione globale di $app->addErrorMiddleWare(true,true,true); che restituisce un 404 se la richiesta non è formulata correttamente)
