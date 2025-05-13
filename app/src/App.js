@@ -2,22 +2,23 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+
+  const alunni =[{"id":"1","nome":"Claudio","cognome":"Benvenuti","scuola_id":"1"},{"id":"2","nome":"Ivan","cognome":"Bruno","scuola_id":"1"}];
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    
+    <table border="1">
+    {alunni.map(a =>
+      <tr>   
+        <td>{a.id}</td>
+        <td>{a.nome}</td>
+        <td>{a.cognome}</td>
+      </tr>
+    )}
+   </table>
+
     </div>
   );
 }
