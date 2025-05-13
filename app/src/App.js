@@ -1,35 +1,47 @@
 import logo from './logo.svg';
 import './App.css';
 import{useState} from "react";
+import AlunniTable from './AlunniTable';
 
 function App() {
 
   const[alunni,setAlunni] = useState([]);
+  const[caricamento,setCaricamento] =useState(false);
+
+
 
   function caricaAlunni(){
-    const a = [{"id":"1","nome":"Claudio","cognome":"Benvenuti","scuola_id":"1"},{"id":"2","nome":"Ivan","cognome":"Bruno","scuola_id":"1"}];
-    setAlunni(a);
+    setCaricamento(true);
+    fetch("http://localhost:8080/scuole/1/docenti",{method:"GET"})
+    .then((data)=>{
+      data.json().then((mieiDati)=>{
+        setCaricamento(false);
+        setAlunni(mieiDati);
+      });
+      
+    });
+
   }
 
+  // puoi fare lo stesso facendo la funzione async e mettendo ad ogni operazioni si mette davanti await
 
   return (
     <div className="App">
     
     {alunni.length > 0 ? (
 
-      <table border="1">
-      {alunni.map(a =>
-        <tr>   
-          <td>{a.id}</td>
-          <td>{a.nome}</td>
-          <td>{a.cognome}</td>
-        </tr>
-      )}
-    </table>
-      ):(
-        <button onClick={caricaAlunni}> carica alunni</button>
+      <AlunniTable myArray={alunni} />
+      ) : (
+      <div>
+        {caricamento ? (
+          <div>  caricamento in corso  </div> 
+        ):(
+  
+        <button onClick={caricaAlunni}>carica alunni</button>
       )
     }
+      </div>
+    )}
     </div>
   );
 }
